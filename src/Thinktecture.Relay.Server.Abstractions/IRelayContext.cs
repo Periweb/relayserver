@@ -1,4 +1,4 @@
-using Thinktecture.Relay.Abstractions;
+using Thinktecture.Relay.Payload;
 
 namespace Thinktecture.Relay.Server
 {

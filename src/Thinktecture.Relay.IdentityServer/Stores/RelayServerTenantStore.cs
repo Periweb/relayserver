@@ -10,7 +10,7 @@ using Thinktecture.Relay.Server.Persistence.Models;
 namespace Thinktecture.Relay.IdentityServer.Stores
 {
 	/// <summary>
-	/// Loads IdentityServer4 <see cref="Client"/> objects from the RelayServer Tenant store.
+	/// Loads IdentityServer4 <see cref="Client"/> objects from the tenant store.
 	/// </summary>
 	public class RelayServerTenantStore : IClientStore
 	{

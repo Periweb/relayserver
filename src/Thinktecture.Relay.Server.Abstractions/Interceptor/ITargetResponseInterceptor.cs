@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Thinktecture.Relay.Abstractions;
+using Thinktecture.Relay.Payload;
 
 namespace Thinktecture.Relay.Server.Interceptor
 {

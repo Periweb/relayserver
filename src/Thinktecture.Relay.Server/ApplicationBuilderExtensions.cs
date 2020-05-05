@@ -1,4 +1,5 @@
-using Thinktecture.Relay.Abstractions;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Thinktecture.Relay.Payload;
 using Thinktecture.Relay.Server.Middleware;
 
 // ReSharper disable once CheckNamespace; (extension methods on IApplicationBuilder namespace)
@@ -25,9 +26,16 @@ namespace Microsoft.AspNetCore.Builder
 		/// <param name="builder">The <see cref="IApplicationBuilder"/> instance.</param>
 		/// <returns>The <see cref="IApplicationBuilder"/> instance.</returns>
 		public static IApplicationBuilder UseRelayServer<TRequest>(this IApplicationBuilder builder)
-			where TRequest : ITransportClientRequest, new()
+			where TRequest : IRelayClientRequest
 		{
-			return builder.Map("/relay", app => app.UseMiddleware<RelayMiddleware<TRequest>>());
+			builder.Map("/relay", app => app.UseMiddleware<RelayMiddleware<TRequest>>());
+			builder.Map("/health", app =>
+			{
+				app.UseHealthChecks("/ready", new HealthCheckOptions() { Predicate = check => check.Tags.Contains("ready") });
+				app.UseHealthChecks("/live", new HealthCheckOptions() { Predicate = _ => false });
+			});
+
+			return builder;
 		}
 	}
 }

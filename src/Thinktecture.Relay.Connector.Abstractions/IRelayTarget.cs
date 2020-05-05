@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Thinktecture.Relay.Abstractions;
+using Thinktecture.Relay.Payload;
 
 namespace Thinktecture.Relay.Connector.Abstractions
 {
@@ -10,8 +10,8 @@ namespace Thinktecture.Relay.Connector.Abstractions
 	/// <typeparam name="TRequest">The type of request.</typeparam>
 	/// <typeparam name="TResponse">The type of response.</typeparam>
 	public interface IRelayTarget<in TRequest, TResponse>
-		where TRequest : ITransportClientRequest
-		where TResponse : ITransportTargetResponse, new()
+		where TRequest : IRelayClientRequest
+		where TResponse : IRelayTargetResponse
 	{
 		/// <summary>
 		/// Called when the target should be requested.

@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Thinktecture.Relay.Abstractions;
+using Thinktecture.Relay.Payload;
 
 namespace Thinktecture.Relay.Server
 {
@@ -11,8 +11,8 @@ namespace Thinktecture.Relay.Server
 	/// <typeparam name="TRequest">The type of request.</typeparam>
 	/// <typeparam name="TResponse">The type of response.</typeparam>
 	public interface ITenantConnectorAdapterLocator<TRequest, TResponse>
-		where TRequest : ITransportClientRequest
-		where TResponse : ITransportTargetResponse
+		where TRequest : IRelayClientRequest
+		where TResponse : IRelayTargetResponse
 	{
 		/// <summary>
 		/// Registers the connection by creating a <see cref="ITenantConnectorAdapter{TRequest,TResponse}"/>.

@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Thinktecture.Relay.Abstractions\Thinktecture.Relay.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.3" />
+  </ItemGroup>
+
 </Project>

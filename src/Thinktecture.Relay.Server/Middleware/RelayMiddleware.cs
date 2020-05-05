@@ -1,24 +1,26 @@
 using System;
+using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using Thinktecture.Relay.Abstractions;
+using Thinktecture.Relay.Payload;
 
 namespace Thinktecture.Relay.Server.Middleware
 {
-	// ReSharper disable once ClassNeverInstantiated.Global
 	/// <inheritdoc />
 	public class RelayMiddleware<TRequest> : IMiddleware
-		where TRequest : ITransportClientRequest, new()
+		where TRequest : IRelayClientRequest
 	{
-		private readonly ITransportClientRequestFactory<TRequest> _requestFactory;
+		private readonly IRelayClientRequestFactory<TRequest> _requestFactory;
 		private readonly ILogger<RelayMiddleware<TRequest>> _logger;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="RelayMiddleware{TRequest}"/>.
 		/// </summary>
-		public RelayMiddleware(ITransportClientRequestFactory<TRequest> requestFactory, ILogger<RelayMiddleware<TRequest>> logger)
+		public RelayMiddleware(IRelayClientRequestFactory<TRequest> requestFactory, ILogger<RelayMiddleware<TRequest>> logger)
 		{
 			_requestFactory = requestFactory;
 			_logger = logger;
@@ -27,25 +29,23 @@ namespace Thinktecture.Relay.Server.Middleware
 		/// <inheritdoc />
 		public async Task InvokeAsync(HttpContext context, RequestDelegate next)
 		{
-			var parts = context.Request.Path.Value.Split('/');
-			// TODO target can be an empty string
-			if (parts.Length >= 3)
+			var tenantName = context.Request.Path.Value.Split('/').Skip(1).FirstOrDefault();
+			if (!string.IsNullOrEmpty(tenantName))
 			{
-				var tenantName = parts[1];
 				// TODO verify tenant existence
 
 				context.Request.EnableBuffering();
 				await context.Request.Body.DrainAsync(context.RequestAborted);
 
-				Console.WriteLine(context.Request.Body.Length);
-
-				var request = _requestFactory.Create(context);
+				var request = await _requestFactory.CreateAsync(context);
 				_logger?.LogTrace("Parsed request into {@ClientRequest}", request);
+
+				context.Response.ContentType = "application/json";
+				await context.Response.WriteAsync(JsonSerializer.Serialize(request), context.RequestAborted);
+				return;
 			}
-			else
-			{
-				_logger?.LogWarning("Invalid request received {Path}", context.Request.Path);
-			}
+
+			_logger?.LogWarning("Invalid request received {Path}{Query}", context.Request.Path, context.Request.QueryString);
 
 			await next.Invoke(context);
 		}

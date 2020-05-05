@@ -1,4 +1,4 @@
-using Thinktecture.Relay.Abstractions;
+using Thinktecture.Relay.Payload;
 
 namespace Thinktecture.Relay.Server
 {
@@ -7,7 +7,7 @@ namespace Thinktecture.Relay.Server
 	/// </summary>
 	/// <typeparam name="TResponse">The type of response.</typeparam>
 	public interface IServerHandler<TResponse>
-		where TResponse : ITransportTargetResponse
+		where TResponse : IRelayTargetResponse
 	{
 		// TODO methods/events/tbd for consuming messages
 	}

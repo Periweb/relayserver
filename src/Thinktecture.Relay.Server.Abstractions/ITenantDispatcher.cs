@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using Thinktecture.Relay.Abstractions;
+using Thinktecture.Relay.Payload;
 
 namespace Thinktecture.Relay.Server
 {
@@ -11,8 +11,8 @@ namespace Thinktecture.Relay.Server
 	/// <typeparam name="TResponse">The type of response.</typeparam>
 	/// <remarks>The implementing instance should be a singleton.</remarks>
 	public interface ITenantDispatcher<in TRequest, TResponse>
-		where TRequest : ITransportClientRequest
-		where TResponse : ITransportTargetResponse
+		where TRequest : IRelayClientRequest
+		where TResponse : IRelayTargetResponse
 	{
 		/// <summary>
 		/// Dispatches the request to a tenant.
