@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using Thinktecture.Relay.Payload;
+using Thinktecture.Relay.Server.Transport;
+using Thinktecture.Relay.Transport;
 
 namespace Thinktecture.Relay.Server.Middleware
 {

@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using Thinktecture.Relay.Payload;
+using Thinktecture.Relay.Transport;
 
 namespace Thinktecture.Relay.Server
 {

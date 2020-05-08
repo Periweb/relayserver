@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Thinktecture.Relay.Acknowledgement;
-using Thinktecture.Relay.Payload;
+using Thinktecture.Relay.Transport;
 
 namespace Thinktecture.Relay.Connector.Abstractions
 {

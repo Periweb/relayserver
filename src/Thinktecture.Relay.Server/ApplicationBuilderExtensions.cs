@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Thinktecture.Relay.Payload;
 using Thinktecture.Relay.Server.Middleware;
+using Thinktecture.Relay.Transport;
 
 // ReSharper disable once CheckNamespace; (extension methods on IApplicationBuilder namespace)
 namespace Microsoft.AspNetCore.Builder

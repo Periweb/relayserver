@@ -3,7 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Thinktecture.Relay.Acknowledgement;
-using Thinktecture.Relay.Payload;
+using Thinktecture.Relay.Server.Transport;
+using Thinktecture.Relay.Transport;
 
 namespace Thinktecture.Relay.Server.Factories
 {

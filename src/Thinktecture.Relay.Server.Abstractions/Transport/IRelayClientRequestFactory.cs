@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Thinktecture.Relay.Payload;
+using Thinktecture.Relay.Transport;
 
-namespace Thinktecture.Relay.Server
+namespace Thinktecture.Relay.Server.Transport
 {
 	/// <summary>
 	/// An implementation of a factory to create an instance of a class implementing <see cref="IRelayClientRequest"/>.

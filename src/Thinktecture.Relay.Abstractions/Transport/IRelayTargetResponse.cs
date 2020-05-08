@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Thinktecture.Relay.Acknowledgement;
+using System.Net;
 
-namespace Thinktecture.Relay.Payload
+namespace Thinktecture.Relay.Transport
 {
 	/// <summary>
-	/// The metadata of a client request to be relayed.
+	/// The metadata of a target response to be relayed.
 	/// </summary>
-	public interface IRelayClientRequest
+	public interface IRelayTargetResponse
 	{
 		/// <summary>
 		/// The unique id of the request.
@@ -23,29 +23,21 @@ namespace Thinktecture.Relay.Payload
 		Guid RequestOriginId { get; set; }
 
 		/// <summary>
-		/// Indicating the mode if and when the connector should acknowledge the processing of the request.
+		/// The time when the target was requested in behalf.
 		/// </summary>
-		AcknowledgeMode AcknowledgeMode { get; set; }
+		/// <remarks>This will only be set when tracing is enabled.</remarks>
+		DateTime? RequestStart { get; set; }
 
 		/// <summary>
-		/// The unique id of the server where the acknowledgment should be send to.
+		/// The duration until the target returned its results.
 		/// </summary>
-		Guid? AcknowledgeOriginId { get; set; }
+		/// <remarks>This will only be set when tracing is enabled.</remarks>
+		TimeSpan? RequestDuration { get; set; }
 
 		/// <summary>
-		/// The name of the target used to request the response from.
+		/// The <see cref="HttpStatusCode"/> received from the target.
 		/// </summary>
-		string Target { get; set; }
-
-		/// <summary>
-		/// The HTTP method used by the requesting client.
-		/// </summary>
-		string HttpMethod { get; set; }
-
-		/// <summary>
-		/// The URL used by the requesting client relative to the <see cref="Target"/>.
-		/// </summary>
-		string Url { get; set; }
+		HttpStatusCode HttpStatusCode { get; set; }
 
 		/// <summary>
 		/// The HTTP headers provided.
@@ -53,7 +45,7 @@ namespace Thinktecture.Relay.Payload
 		IDictionary<string, string[]> HttpHeaders { get; set; }
 
 		/// <summary>
-		/// The size of the body or null if there is no body.
+		/// The size of the body or null if the size is unknown.
 		/// </summary>
 		/// <seealso cref="BodyContent"/>
 		long? BodySize { get; set; }

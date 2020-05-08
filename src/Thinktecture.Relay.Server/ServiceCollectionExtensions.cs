@@ -1,9 +1,10 @@
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Thinktecture.Relay.Payload;
 using Thinktecture.Relay.Server;
 using Thinktecture.Relay.Server.Factories;
 using Thinktecture.Relay.Server.HealthChecks;
 using Thinktecture.Relay.Server.Middleware;
+using Thinktecture.Relay.Server.Transport;
+using Thinktecture.Relay.Transport;
 
 // ReSharper disable once CheckNamespace; (extension methods on IServiceCollection namespace)
 namespace Microsoft.Extensions.DependencyInjection

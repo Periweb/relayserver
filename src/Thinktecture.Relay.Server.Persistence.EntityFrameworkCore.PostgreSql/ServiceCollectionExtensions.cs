@@ -31,6 +31,7 @@ namespace Thinktecture.Relay.Server.Persistence.EntityFrameworkCore.PostgreSql
 		{
 			return serviceCollection.AddDbContext<RelayServerConfigurationDbContext>(contextOptionsBuilder =>
 					{
+						contextOptionsBuilder.UseLoggerFactory()
 						contextOptionsBuilder.UseNpgsql(connectionString, optionsBuilder =>
 						{
 							if (addDefaultMigrations)

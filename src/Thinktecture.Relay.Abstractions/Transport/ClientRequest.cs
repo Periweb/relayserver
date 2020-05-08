@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 using System.Text.Json.Serialization;
+using Thinktecture.Relay.Acknowledgement;
 
-namespace Thinktecture.Relay.Payload
+namespace Thinktecture.Relay.Transport
 {
 	/// <inheritdoc />
-	public class TargetResponse : IRelayTargetResponse
+	public class ClientRequest : IRelayClientRequest
 	{
 		/// <inheritdoc />
 		public Guid RequestId { get; set; }
@@ -16,13 +16,19 @@ namespace Thinktecture.Relay.Payload
 		public Guid RequestOriginId { get; set; }
 
 		/// <inheritdoc />
-		public DateTime? RequestStart { get; set; }
+		public AcknowledgeMode AcknowledgeMode { get; set; }
 
 		/// <inheritdoc />
-		public TimeSpan? RequestDuration { get; set; }
+		public Guid? AcknowledgeOriginId { get; set; }
 
 		/// <inheritdoc />
-		public HttpStatusCode HttpStatusCode { get; set; }
+		public string Target { get; set; }
+
+		/// <inheritdoc />
+		public string HttpMethod { get; set; }
+
+		/// <inheritdoc />
+		public string Url { get; set; }
 
 		/// <inheritdoc />
 		public IDictionary<string, string[]> HttpHeaders { get; set; }
